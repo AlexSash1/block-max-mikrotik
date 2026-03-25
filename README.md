@@ -26,6 +26,7 @@
 ### Способ 2: Ручной ввод команд
 
 Скопируйте и выполните следующие команды в терминале RouterOS:
+```routeros
 /ip dns static add name=api.ipify.org  match-subdomain=yes type=FWD address-list=BlockMax
 /ip dns static add name=checkip.amazonaws.com  match-subdomain=yes type=FWD address-list=BlockMax
 /ip dns static add name=ifconfig.me  match-subdomain=yes type=FWD address-list=BlockMax
@@ -46,12 +47,15 @@ ip/firewall/address-list/add address=api.oneme.ru  list=BlockMax comment=BlockMa
 ip/firewall/address-list/add address=api-gost.oneme.ru list=BlockMax comment=BlockMax 
 
 /ip firewall filter add chain=forward dst-address-list=BlockMax action=drop log=yes log-prefix="BlockMax" comment="Block traffic to BlockMax list"
+```
 ## Удаление
 
 Для удаления правил выполните:
+```routeros
 /ip dns static remove [find address-list=BlockMax]
 /ip firewall address-list remove [find list=BlockMax]
 /ip firewall filter remove [find comment="Block traffic to BlockMax list"]
+```
 ## Примечания
 
 - Убедитесь, что в вашем RouterOS включена DNS-служба (`/ip dns set allow-remote-requests=yes`), если вы используете DNS Forwarding.
